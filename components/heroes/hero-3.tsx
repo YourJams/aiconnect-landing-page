@@ -6,21 +6,21 @@ import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide
 const partners = [
   {
     id: 1,
-    name: 'Sarah Mitchell',
-    description: 'Tech & AI Content Creator | 500K+ followers',
+    name: 'Whamos Cruz',
+    description: 'Content Creator | 500K+ followers',
     video: '/Whamos.mp4',
   },
   {
     id: 2,
-    name: 'David Chen',
-    description: 'Filmmaker & Producer | 1M+ followers',
-    video: '/Whamos.mp4',
+    name: 'Aliya Reymundo',
+    description: 'VMX Actress | 1M+ followers',
+    video: '/Aliya.mp4',
   },
   {
     id: 3,
-    name: 'Luna Rodriguez',
-    description: 'Music Producer & Creator | 750K+ followers',
-    video: '/Whamos.mp4',
+    name: 'Sachzna Laparan',
+    description: 'Filipino social media influencer, actress, and entrepreneur | 750K+ followers',
+    video: '/Sachzna.mp4',
   },
   {
     id: 4,
