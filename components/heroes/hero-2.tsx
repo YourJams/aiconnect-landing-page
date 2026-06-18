@@ -1,7 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '../ui/button'
 
 const testimonials = [
@@ -48,37 +46,28 @@ const testimonials = [
 ]
 
 export function Hero2() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [autoPlay, setAutoPlay] = useState(true)
-
-  useEffect(() => {
-    if (!autoPlay) return
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => prev + 1)
-    }, 5000)
-
-    return () => clearInterval(timer)
-  }, [autoPlay, testimonials.length])
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index)
-    setAutoPlay(false)
-  }
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => prev + 3)
-    setAutoPlay(false)
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => prev - 3)
-    setAutoPlay(false)
-  }
+  const duplicatedTestimonials = [...testimonials, ...testimonials]
 
   return (
     <section id="hero-2" className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background via-primary/5 to-background">
-      <div className="max-w-6xl mx-auto w-full">
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .marquee-container {
+          animation: marquee 40s linear infinite;
+        }
+        .marquee-container:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+      
+      <div className="w-full">
         <div className="space-y-12">
           {/* Header */}
           <div className="text-center space-y-4">
@@ -90,92 +79,51 @@ export function Hero2() {
             </p>
           </div>
 
-          {/* Carousel */}
-          <div className="relative">
-            {/* Cards Container */}
-            <div className="overflow-hidden">
-              <div
-                className="transition-transform duration-500 ease-out"
-                style={{
-                  transform: `translateX(-${(currentIndex % (testimonials.length + 2)) * (100 / 3)}%)`,
-                }}
-              >
-                <div className="flex">
-                  {[...testimonials, ...testimonials.slice(0, 2)].map((testimonial, idx) => (
-                    <div
-                      key={`${testimonial.id}-${idx}`}
-                      className="w-1/3 flex-shrink-0 px-3 sm:px-4"
-                    >
-                      <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
-                        {/* Video */}
-                        <div className="w-full aspect-[9/12] bg-black rounded-xl overflow-hidden border border-secondary/30">
-                          <video
-                            width="180"
-                            height="240"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                          >
-                            <source src={testimonial.video} type="video/mp4" />
-                          </video>
-                        </div>
+          {/* Marquee Container */}
+          <div className="overflow-hidden">
+            <div className="marquee-container flex gap-4">
+              {duplicatedTestimonials.map((testimonial, idx) => (
+                <div
+                  key={`${testimonial.id}-${idx}`}
+                  className="flex-shrink-0 w-72"
+                >
+                  <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
+                    {/* Video */}
+                    <div className="w-full aspect-[9/12] bg-black rounded-xl overflow-hidden border border-secondary/30">
+                      <video
+                        width="240"
+                        height="320"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      >
+                        <source src={testimonial.video} type="video/mp4" />
+                      </video>
+                    </div>
 
-                        {/* Content */}
-                        <div className="space-y-2">
-                          <blockquote className="text-sm text-foreground italic line-clamp-2">
-                            "{testimonial.quote}"
-                          </blockquote>
+                    {/* Content */}
+                    <div className="space-y-2">
+                      <blockquote className="text-sm text-foreground italic line-clamp-2">
+                        "{testimonial.quote}"
+                      </blockquote>
 
-                          <div className="pt-2 border-t border-border/50">
-                            <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
-                            <p className="text-xs text-foreground/60">{testimonial.title}</p>
-                            <p className="text-xs text-primary mt-1">{testimonial.views}</p>
-                          </div>
-                        </div>
+                      <div className="pt-2 border-t border-border/50">
+                        <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
+                        <p className="text-xs text-foreground/60">{testimonial.title}</p>
+                        <p className="text-xs text-primary mt-1">{testimonial.views}</p>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 sm:-translate-x-20 p-2 hover:bg-primary/20 rounded-full transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 sm:translate-x-20 p-2 hover:bg-primary/20 rounded-full transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
           </div>
 
-          {/* Dots Navigation */}
-          <div className="flex justify-center gap-3">
-            {[0, 3].map((index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setCurrentIndex(index)
-                  setAutoPlay(false)
-                }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === (currentIndex % testimonials.length)
-                    ? 'bg-primary w-8'
-                    : 'bg-muted hover:bg-muted/80'
-                }`}
-                aria-label={`Go to testimonials set ${Math.floor(index / 3) + 1}`}
-              />
-            ))}
+          {/* Info Text */}
+          <div className="text-center">
+            <p className="text-sm text-foreground/50">Hover to pause • Continuously scrolling creators</p>
           </div>
         </div>
       </div>
