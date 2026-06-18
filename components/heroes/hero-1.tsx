@@ -29,7 +29,9 @@ export function Hero1() {
             <div>
               <img src="/AiConnect.png" alt="AI Connect Logo" className="h-20 w-auto mb-6" />
               <p className="text-lg sm:text-xl text-foreground/70">
-                Elevate your content with cutting-edge AI tools designed for creators. Get paid what you deserve while building your audience.
+                Build a smarter path to extra income and business growth.
+                For Filipinos who want a clearer way to explore products, practical trainings,
+                and guided business opportunity without figuring everything out alone.
               </p>
             </div>
             
