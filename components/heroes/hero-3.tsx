@@ -24,21 +24,15 @@ const partners = [
   },
   {
     id: 4,
-    name: 'James Thompson',
-    description: 'Podcast Host & Interviewer | 600K+ followers',
-    video: '/Whamos.mp4',
+    name: 'Foreigh Germs',
+    description: 'Content Creator | 600K+ followers',
+    video: '/Germs.mp4',
   },
   {
     id: 5,
-    name: 'Priya Patel',
-    description: 'Educational Content Creator | 800K+ followers',
-    video: '/Whamos.mp4',
-  },
-  {
-    id: 6,
-    name: 'Marcus Johnson',
-    description: 'Gaming & Entertainment | 1.2M+ followers',
-    video: '/Whamos.mp4',
+    name: 'Boss Toyo',
+    description: 'Pawn Star, Content Creator | 800K+ followers',
+    video: '/Toyo.mp4',
   },
 ]
 
