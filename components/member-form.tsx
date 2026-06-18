@@ -129,6 +129,23 @@ export function MemberForm() {
         </div>
       )}
 
+      {/* Sponsor Full Name */}
+      <div>
+        <label htmlFor="sponsorFullName" className="block text-sm font-medium text-foreground mb-2">
+          Sponsor Full Name
+        </label>
+        <input
+          type="text"
+          id="sponsorFullName"
+          name="sponsorFullName"
+          value={formData.sponsorFullName}
+          onChange={handleInputChange}
+          required
+          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          placeholder="Sponsor's full name"
+        />
+      </div>
+
       {/* Username */}
       <div>
         <label htmlFor="username" className="block text-sm font-medium text-foreground mb-2">
@@ -143,6 +160,23 @@ export function MemberForm() {
           required
           className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
           placeholder="Enter your username"
+        />
+      </div>
+
+      {/* Password */}
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          placeholder="Enter your password"
         />
       </div>
 
@@ -194,55 +228,20 @@ export function MemberForm() {
         </div>
       </div>
 
-      {/* Phone Number and Sponsor Full Name */}
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="phoneNumber" className="block text-sm font-medium text-foreground mb-2">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            placeholder="+1 (555) 000-0000"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="sponsorFullName" className="block text-sm font-medium text-foreground mb-2">
-            Sponsor Full Name
-          </label>
-          <input
-            type="text"
-            id="sponsorFullName"
-            name="sponsorFullName"
-            value={formData.sponsorFullName}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            placeholder="Sponsor's full name"
-          />
-        </div>
-      </div>
-
-      {/* Password */}
+      {/* Phone Number */}
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
-          Password
+        <label htmlFor="phoneNumber" className="block text-sm font-medium text-foreground mb-2">
+          Phone Number
         </label>
         <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
+          type="tel"
+          id="phoneNumber"
+          name="phoneNumber"
+          value={formData.phoneNumber}
           onChange={handleInputChange}
           required
           className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Enter your password"
+          placeholder="+1 (555) 000-0000"
         />
       </div>
 
