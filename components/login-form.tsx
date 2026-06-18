@@ -94,7 +94,7 @@ export function LoginForm({ onMemberClick }: LoginFormProps) {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary/20 hover:bg-primary/30 text-primary border border-primary border-solid py-2 transition-all"
+            className="w-full bg-black/20 hover:bg-black/30 text-foreground border border-black/30 border-solid py-2 transition-all"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
