@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const partners = [
   {
@@ -151,27 +151,23 @@ function VideoPlayer({ src }: { src: string }) {
 }
 
 export function Hero3() {
-  const duplicatedPartners = [...partners, ...partners]
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const itemsPerView = 3
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % partners.length)
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + partners.length) % partners.length)
+  }
+
+  const visiblePartners = Array.from({ length: itemsPerView }).map((_, i) => 
+    partners[(currentIndex + i) % partners.length]
+  )
 
   return (
     <section id="hero-3" className="flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background to-secondary/5">
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .marquee-carousel {
-          animation: marquee 60s linear infinite;
-        }
-        .marquee-carousel:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
       <div className="w-full">
         <div className="space-y-12">
           {/* Header */}
@@ -184,12 +180,22 @@ export function Hero3() {
             </p>
           </div>
 
-          {/* Carousel Container */}
-          <div className="overflow-hidden">
-            <div className="marquee-carousel flex gap-6 sm:gap-8">
-              {duplicatedPartners.map((partner, idx) => (
+          {/* Carousel Container with Navigation */}
+          <div className="relative flex items-center justify-center gap-4 sm:gap-8">
+            {/* Left Arrow */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 p-3 hover:bg-primary/20 rounded-full transition-colors z-10"
+              aria-label="Previous creators"
+            >
+              <ChevronLeft className="w-8 h-8 text-primary" />
+            </button>
+
+            {/* Videos Container */}
+            <div className="flex gap-6 sm:gap-8 justify-center px-20">
+              {visiblePartners.map((partner, idx) => (
                 <div
-                  key={`${partner.id}-${idx}`}
+                  key={`${partner.id}-${currentIndex}-${idx}`}
                   className="group flex flex-col flex-shrink-0"
                 >
                   {/* Video Player - TikTok Size */}
@@ -209,11 +215,31 @@ export function Hero3() {
                 </div>
               ))}
             </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={handleNext}
+              className="absolute right-0 p-3 hover:bg-primary/20 rounded-full transition-colors z-10"
+              aria-label="Next creators"
+            >
+              <ChevronRight className="w-8 h-8 text-primary" />
+            </button>
           </div>
 
-          {/* Info Text */}
-          <div className="text-center">
-            <p className="text-sm text-foreground/50">Hover to pause • Continuously scrolling creators</p>
+          {/* Pagination Dots */}
+          <div className="flex justify-center gap-3">
+            {Array.from({ length: partners.length }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  idx === currentIndex
+                    ? 'bg-primary w-8'
+                    : 'bg-muted hover:bg-muted/80'
+                }`}
+                aria-label={`Go to partner ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </div>
