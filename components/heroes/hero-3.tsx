@@ -166,37 +166,25 @@ export function Hero3() {
           </div>
 
           {/* Partners Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="group bg-card rounded-2xl border border-secondary/20 overflow-hidden hover:border-secondary/50 hover:shadow-lg hover:shadow-secondary/10 transition-all duration-300 hover:-translate-y-2"
+                className="group flex flex-col"
               >
-                {/* Video Player - Half of card */}
-                <div className="w-full h-48 bg-black overflow-hidden">
+                {/* Video Player - TikTok Size */}
+                <div className="w-72 aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden mb-4">
                   <VideoPlayer src={partner.video} />
                 </div>
 
-                {/* Content - Half of card */}
-                <div className="p-6 sm:p-8 space-y-3">
-                  <h3 className="text-xl font-bold text-foreground">
+                {/* Content */}
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold text-foreground text-center">
                     {partner.name}
                   </h3>
-                  <p className="text-sm text-foreground/60 leading-relaxed">
+                  <p className="text-sm text-foreground/60 text-center leading-relaxed max-w-72">
                     {partner.description}
                   </p>
-
-                  {/* Stats */}
-                  <div className="pt-4 border-t border-border/50 flex gap-4 text-xs">
-                    <div>
-                      <div className="text-primary font-semibold">Active</div>
-                      <div className="text-foreground/40">Partner</div>
-                    </div>
-                    <div>
-                      <div className="text-secondary font-semibold">Verified</div>
-                      <div className="text-foreground/40">Creator</div>
-                    </div>
-                  </div>
                 </div>
               </div>
             ))}
