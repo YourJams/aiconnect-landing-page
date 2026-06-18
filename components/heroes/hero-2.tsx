@@ -5,11 +5,11 @@ import { Button } from '../ui/button'
 const testimonials = [
   {
     id: 1,
-    name: 'Alex Rivera',
+    name: 'Whamos Cruz',
     title: 'Content Creator',
     quote: 'AiConnect transformed how I manage my content.',
     views: '2.5M views',
-    video: '/image.png',
+    video: '/Whamos.mp4',
   },
   {
     id: 2,
