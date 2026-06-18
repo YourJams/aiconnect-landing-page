@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { Button } from '../ui/button'
 
@@ -46,14 +48,21 @@ export function Hero1() {
             </div>
           </div>
 
-          {/* Video Card (Placeholder) */}
+          {/* Video Card */}
           <div className="flex justify-center">
-            <div className="w-full max-w-sm aspect-[9/16] bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl flex items-center justify-center border border-primary/30 shadow-lg shadow-primary/20">
-              <div className="text-center space-y-4">
-                <div className="text-5xl">▶</div>
-                <p className="text-sm text-foreground/60">TikTok Video Card</p>
-                <p className="text-xs text-foreground/40">Vertical Format - 400px Height</p>
-              </div>
+            <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden">
+              <video
+                width="400"
+                height="712"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                <source src="/video1.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>

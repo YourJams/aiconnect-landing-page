@@ -11,12 +11,12 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose, onScroll }: MobileMenuProps) {
   const menuItems = [
-    { label: 'Hero 1: Rights Up', id: 'hero-1' },
-    { label: 'Hero 2: Testimonies', id: 'hero-2' },
-    { label: 'Hero 3: Partners', id: 'hero-3' },
-    { label: 'Hero 4: Why Join Us', id: 'hero-4' },
-    { label: 'Hero 5: Packages', id: 'hero-5' },
-    { label: 'Hero 6: Join Now', id: 'hero-6' },
+    { label: 'AI Connect', id: 'hero-1' },
+    { label: 'What Creators Say', id: 'hero-2' },
+    { label: 'Partners', id: 'hero-3' },
+    { label: 'Why Join Us', id: 'hero-4' },
+    { label: 'Packages', id: 'hero-5' },
+    { label: 'Join Now', id: 'hero-6' },
   ]
 
   return (

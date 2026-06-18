@@ -31,31 +31,31 @@ export function Header() {
                 onClick={() => handleScroll('hero-1')}
                 className="text-sm text-foreground/70 hover:text-primary transition-colors"
               >
-                Rights Up
+                AI Connect
               </button>
               <button
                 onClick={() => handleScroll('hero-2')}
                 className="text-sm text-foreground/70 hover:text-primary transition-colors"
               >
-                Testimonies
+                What Creators Say
               </button>
               <button
                 onClick={() => handleScroll('hero-3')}
                 className="text-sm text-foreground/70 hover:text-primary transition-colors"
               >
-                Partners
+                Creators
               </button>
               <button
                 onClick={() => handleScroll('hero-4')}
                 className="text-sm text-foreground/70 hover:text-primary transition-colors"
               >
-                Why Join
+                Why Us
               </button>
               <button
                 onClick={() => handleScroll('hero-5')}
                 className="text-sm text-foreground/70 hover:text-primary transition-colors"
               >
-                Packages
+                Pricing
               </button>
             </nav>
             <Link href="/lounge">
