@@ -88,7 +88,7 @@ export function LoginForm() {
         {/* Sign Up Link */}
         <div className="space-y-3">
           <p className="text-sm text-center text-foreground/60">
-            Not a member yet?
+          
           </p>
           <Link href="/lounge?signup=true">
             <Button
