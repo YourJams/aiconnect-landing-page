@@ -9,36 +9,41 @@ const testimonials = [
     id: 1,
     name: 'Alex Rivera',
     title: 'Content Creator',
-    quote: 'AiConnect transformed how I manage my content. The tools are intuitive and the earnings are incredible!',
+    quote: 'AiConnect transformed how I manage my content.',
     views: '2.5M views',
+    video: '/video2.mp4',
   },
   {
     id: 2,
     name: 'Jordan Chen',
     title: 'YouTube Creator',
-    quote: 'Finally a platform that respects creator rights. Best decision I made for my channel.',
+    quote: 'Finally a platform that respects creator rights.',
     views: '1.8M views',
+    video: '/video3.mp4',
   },
   {
     id: 3,
     name: 'Emma Studios',
     title: 'Video Production',
-    quote: 'The AI tools saved me hours every week. Now I focus on creativity, not tedious editing.',
+    quote: 'The AI tools saved me hours every week.',
     views: '3.1M views',
+    video: '/video4.mp4',
   },
   {
     id: 4,
     name: 'Marcus Lee',
     title: 'Streaming Creator',
-    quote: 'The community and support here is unmatched. I grew my audience by 300% in 6 months.',
+    quote: 'I grew my audience by 300% in 6 months.',
     views: '2.2M views',
+    video: '/video5.mp4',
   },
   {
     id: 5,
     name: 'Sophie & Co',
     title: 'Podcast Network',
-    quote: 'AiConnect gave us the tools to scale. Their support team is phenomenal.',
+    quote: 'AiConnect gave us the tools to scale.',
     views: '1.5M views',
+    video: '/video2.mp4',
   },
 ]
 
@@ -50,11 +55,11 @@ export function Hero2() {
     if (!autoPlay) return
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+      setCurrentIndex((prev) => prev + 1)
     }, 5000)
 
     return () => clearInterval(timer)
-  }, [autoPlay])
+  }, [autoPlay, testimonials.length])
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index)
@@ -62,12 +67,12 @@ export function Hero2() {
   }
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 3) % testimonials.length)
+    setCurrentIndex((prev) => prev + 3)
     setAutoPlay(false)
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 3 + testimonials.length * 3) % testimonials.length)
+    setCurrentIndex((prev) => prev - 3)
     setAutoPlay(false)
   }
 
@@ -92,22 +97,29 @@ export function Hero2() {
               <div
                 className="transition-transform duration-500 ease-out"
                 style={{
-                  transform: `translateX(-${(currentIndex % testimonials.length) * (100 / 3)}%)`,
+                  transform: `translateX(-${(currentIndex % (testimonials.length + 2)) * (100 / 3)}%)`,
                 }}
               >
                 <div className="flex">
-                  {testimonials.map((testimonial) => (
+                  {[...testimonials, ...testimonials.slice(0, 2)].map((testimonial, idx) => (
                     <div
-                      key={testimonial.id}
+                      key={`${testimonial.id}-${idx}`}
                       className="w-1/3 flex-shrink-0 px-3 sm:px-4"
                     >
                       <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
-                        {/* Video Placeholder */}
-                        <div className="w-full aspect-[9/12] bg-gradient-to-br from-secondary/20 to-primary/20 rounded-xl flex items-center justify-center border border-secondary/30">
-                          <div className="text-center space-y-2">
-                            <div className="text-3xl">▶</div>
-                            <p className="text-xs text-foreground/40">Video</p>
-                          </div>
+                        {/* Video */}
+                        <div className="w-full aspect-[9/12] bg-black rounded-xl overflow-hidden border border-secondary/30">
+                          <video
+                            width="180"
+                            height="240"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                          >
+                            <source src={testimonial.video} type="video/mp4" />
+                          </video>
                         </div>
 
                         {/* Content */}
@@ -161,7 +173,7 @@ export function Hero2() {
                     ? 'bg-primary w-8'
                     : 'bg-muted hover:bg-muted/80'
                 }`}
-                aria-label={`Go to testimonials ${index + 1}-${index + 3}`}
+                aria-label={`Go to testimonials set ${Math.floor(index / 3) + 1}`}
               />
             ))}
           </div>
