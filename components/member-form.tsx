@@ -214,7 +214,7 @@ export function MemberForm() {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-border/50" />
+      <div className="border-t border-primary/60" />
 
       {/* Sponsor Full Name */}
       <div>
@@ -234,7 +234,7 @@ export function MemberForm() {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-border/50" />
+      <div className="border-t border-primary/60" />
 
       {/* Create Log In Access Section Header */}
       <div>
