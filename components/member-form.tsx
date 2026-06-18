@@ -11,12 +11,13 @@ const supabase = createClient(
 
 export function MemberForm() {
   const [formData, setFormData] = useState({
-    username: '',
     firstName: '',
     middleName: '',
     lastName: '',
-    phoneNumber: '',
+    completeAddress: '',
+    contactNumber: '',
     sponsorFullName: '',
+    username: '',
     password: '',
   })
 
@@ -80,7 +81,7 @@ export function MemberForm() {
             first_name: formData.firstName,
             middle_name: formData.middleName || null,
             last_name: formData.lastName,
-            phone_number: formData.phoneNumber,
+            phone_number: formData.contactNumber,
             sponsor_full_name: formData.sponsorFullName,
             password: formData.password,
             receipt_file_url: receiptUrl,
@@ -96,12 +97,13 @@ export function MemberForm() {
 
       setSuccess(true)
       setFormData({
-        username: '',
         firstName: '',
         middleName: '',
         lastName: '',
-        phoneNumber: '',
+        completeAddress: '',
+        contactNumber: '',
         sponsorFullName: '',
+        username: '',
         password: '',
       })
       setReceiptFile(null)
@@ -128,57 +130,6 @@ export function MemberForm() {
           Account created successfully! Welcome to AiConnect.
         </div>
       )}
-
-      {/* Sponsor Full Name */}
-      <div>
-        <label htmlFor="sponsorFullName" className="block text-sm font-medium text-foreground mb-2">
-          Sponsor Full Name
-        </label>
-        <input
-          type="text"
-          id="sponsorFullName"
-          name="sponsorFullName"
-          value={formData.sponsorFullName}
-          onChange={handleInputChange}
-          required
-          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Sponsor's full name"
-        />
-      </div>
-
-      {/* Username */}
-      <div>
-        <label htmlFor="username" className="block text-sm font-medium text-foreground mb-2">
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Enter your username"
-        />
-      </div>
-
-      {/* Password */}
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Enter your password"
-        />
-      </div>
 
       {/* First Name, Middle Name, Last Name */}
       <div className="grid grid-cols-3 gap-4">
@@ -228,21 +179,101 @@ export function MemberForm() {
         </div>
       </div>
 
-      {/* Phone Number */}
+      {/* Complete Address */}
       <div>
-        <label htmlFor="phoneNumber" className="block text-sm font-medium text-foreground mb-2">
-          Phone Number
+        <label htmlFor="completeAddress" className="block text-sm font-medium text-foreground mb-2">
+          Complete Address
+        </label>
+        <input
+          type="text"
+          id="completeAddress"
+          name="completeAddress"
+          value={formData.completeAddress}
+          onChange={handleInputChange}
+          required
+          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          placeholder="Enter your complete address"
+        />
+      </div>
+
+      {/* Contact Number */}
+      <div>
+        <label htmlFor="contactNumber" className="block text-sm font-medium text-foreground mb-2">
+          Contact Number
         </label>
         <input
           type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={formData.phoneNumber}
+          id="contactNumber"
+          name="contactNumber"
+          value={formData.contactNumber}
           onChange={handleInputChange}
           required
           className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
           placeholder="+1 (555) 000-0000"
         />
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-border/50" />
+
+      {/* Sponsor Full Name */}
+      <div>
+        <label htmlFor="sponsorFullName" className="block text-sm font-medium text-foreground mb-2">
+          Sponsor Full Name
+        </label>
+        <input
+          type="text"
+          id="sponsorFullName"
+          name="sponsorFullName"
+          value={formData.sponsorFullName}
+          onChange={handleInputChange}
+          required
+          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          placeholder="Sponsor's full name"
+        />
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-border/50" />
+
+      {/* Create Log In Access Section Header */}
+      <div>
+        <h3 className="text-lg font-semibold text-foreground">Create Log In Access</h3>
+      </div>
+
+      {/* Username and Password */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="username" className="block text-sm font-medium text-foreground mb-2">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            placeholder="Enter your password"
+          />
+        </div>
       </div>
 
       {/* QR Code and Receipt */}
