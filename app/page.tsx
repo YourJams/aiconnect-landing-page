@@ -11,8 +11,8 @@ export default function Page() {
     <main className="overflow-x-hidden">
       <Header />
       <Hero1 />
-      <Hero2 />
       <Hero3 />
+      <Hero2 />
       <Hero4 />
       <Hero5 />
       <Hero6 />

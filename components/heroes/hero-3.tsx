@@ -3,37 +3,37 @@ const partners = [
     id: 1,
     name: 'Sarah Mitchell',
     description: 'Tech & AI Content Creator | 500K+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid1.mp4',
   },
   {
     id: 2,
     name: 'David Chen',
     description: 'Filmmaker & Producer | 1M+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid2.mp4',
   },
   {
     id: 3,
     name: 'Luna Rodriguez',
     description: 'Music Producer & Creator | 750K+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid3.mp4',
   },
   {
     id: 4,
     name: 'James Thompson',
     description: 'Podcast Host & Interviewer | 600K+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid5.mp4',
   },
   {
     id: 5,
     name: 'Priya Patel',
     description: 'Educational Content Creator | 800K+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid1.mp4',
   },
   {
     id: 6,
     name: 'Marcus Johnson',
     description: 'Gaming & Entertainment | 1.2M+ followers',
-    image: '/partner-placeholder.jpg',
+    video: '/vid2.mp4',
   },
 ]
 
@@ -59,13 +59,19 @@ export function Hero3() {
                 key={partner.id}
                 className="group bg-card rounded-2xl border border-secondary/20 overflow-hidden hover:border-secondary/50 hover:shadow-lg hover:shadow-secondary/10 transition-all duration-300 hover:-translate-y-2"
               >
-                {/* Image - Half of card */}
-                <div className="w-full h-48 bg-gradient-to-br from-secondary/20 to-primary/20 overflow-hidden">
-                  <img
-                    src={partner.image}
-                    alt={partner.name}
+                {/* Video - Half of card */}
+                <div className="w-full h-48 bg-black overflow-hidden">
+                  <video
+                    width="300"
+                    height="192"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                  >
+                    <source src={partner.video} type="video/mp4" />
+                  </video>
                 </div>
 
                 {/* Content - Half of card */}

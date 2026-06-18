@@ -9,7 +9,7 @@ const testimonials = [
     title: 'Content Creator',
     quote: 'AiConnect transformed how I manage my content.',
     views: '2.5M views',
-    video: '/video2.mp4',
+    video: '/image.png',
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const testimonials = [
     title: 'YouTube Creator',
     quote: 'Finally a platform that respects creator rights.',
     views: '1.8M views',
-    video: '/video3.mp4',
+    video: '/image.png',
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const testimonials = [
     title: 'Video Production',
     quote: 'The AI tools saved me hours every week.',
     views: '3.1M views',
-    video: '/video4.mp4',
+    video: '/image.png',
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const testimonials = [
     title: 'Streaming Creator',
     quote: 'I grew my audience by 300% in 6 months.',
     views: '2.2M views',
-    video: '/video5.mp4',
+    video: '/image.png',
   },
   {
     id: 5,
@@ -41,7 +41,7 @@ const testimonials = [
     title: 'Podcast Network',
     quote: 'AiConnect gave us the tools to scale.',
     views: '1.5M views',
-    video: '/video2.mp4',
+    video: '/image.png',
   },
 ]
 
@@ -88,19 +88,13 @@ export function Hero2() {
                   className="flex-shrink-0 w-72"
                 >
                   <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
-                    {/* Video */}
+                    {/* Image */}
                     <div className="w-full aspect-[9/12] bg-black rounded-xl overflow-hidden border border-secondary/30">
-                      <video
-                        width="240"
-                        height="320"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
+                      <img
+                        src={testimonial.video}
+                        alt={testimonial.name}
                         className="w-full h-full object-cover"
-                      >
-                        <source src={testimonial.video} type="video/mp4" />
-                      </video>
+                      />
                     </div>
 
                     {/* Content */}
