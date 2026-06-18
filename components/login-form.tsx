@@ -4,7 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from './ui/button'
 
-export function LoginForm() {
+interface LoginFormProps {
+  onMemberClick?: () => void
+}
+
+export function LoginForm({ onMemberClick }: LoginFormProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -20,6 +24,20 @@ export function LoginForm() {
   }
 
   return (
+    <>
+      <style jsx>{`
+        @keyframes tiltShake {
+          0%, 100% { transform: translateX(0) rotateZ(0deg); }
+          15% { transform: translateX(-2px) rotateZ(-1deg); }
+          30% { transform: translateX(2px) rotateZ(1deg); }
+          45% { transform: translateX(-2px) rotateZ(-1deg); }
+          60% { transform: translateX(2px) rotateZ(1deg); }
+          75% { transform: translateX(-2px) rotateZ(-1deg); }
+        }
+        .tilt-shake-button {
+          animation: tiltShake 0.6s infinite;
+        }
+      `}</style>
     <div className="w-full max-w-md">
       <div className="bg-card rounded-2xl border border-primary/20 p-8 space-y-6">
         {/* Header */}
@@ -76,7 +94,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-2"
+            className="w-full bg-primary/20 hover:bg-primary/30 text-primary border border-primary border-solid py-2 transition-all"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
@@ -85,20 +103,13 @@ export function LoginForm() {
         {/* Divider */}
         <div className="border-t border-border/50" />
 
-        {/* Sign Up Link */}
-        <div className="space-y-3">
-          <p className="text-sm text-center text-foreground/60">
-          
-          </p>
-          <Link href="/lounge?signup=true">
-            <Button
-              variant="outline"
-              className="w-full border-primary/50 text-foreground hover:bg-primary/10"
-            >
-              Be A Member
-            </Button>
-          </Link>
-        </div>
+        {/* Be A Member Button */}
+        <button
+          onClick={onMemberClick}
+          className="tilt-shake-button w-full px-6 py-3 font-semibold text-foreground rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
+        >
+          Be A Member
+        </button>
 
         {/* Additional Links */}
         <div className="pt-4 border-t border-border/50 flex justify-center gap-4 text-xs text-foreground/50">
@@ -116,5 +127,6 @@ export function LoginForm() {
         </div>
       </div>
     </div>
+    </>
   )
 }
