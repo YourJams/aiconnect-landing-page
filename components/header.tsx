@@ -21,7 +21,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 max-w-7xl mx-auto w-full">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
-            <span className="text-primary">AI</span>
+            <span className="text-primary">Ai</span>
             <span className="text-foreground">Connect</span>
           </Link>
 
