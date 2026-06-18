@@ -151,9 +151,28 @@ function VideoPlayer({ src }: { src: string }) {
 }
 
 export function Hero3() {
+  const duplicatedPartners = [...partners, ...partners]
+
   return (
-    <section id="hero-3" className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background to-secondary/5">
-      <div className="max-w-6xl mx-auto w-full">
+    <section id="hero-3" className="flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background to-secondary/5">
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .marquee-carousel {
+          animation: marquee 60s linear infinite;
+        }
+        .marquee-carousel:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div className="w-full">
         <div className="space-y-12">
           {/* Header */}
           <div className="text-center space-y-4">
@@ -165,29 +184,36 @@ export function Hero3() {
             </p>
           </div>
 
-          {/* Partners Grid */}
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
-            {partners.map((partner) => (
-              <div
-                key={partner.id}
-                className="group flex flex-col"
-              >
-                {/* Video Player - TikTok Size */}
-                <div className="w-72 aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden mb-4">
-                  <VideoPlayer src={partner.video} />
-                </div>
+          {/* Carousel Container */}
+          <div className="overflow-hidden">
+            <div className="marquee-carousel flex gap-6 sm:gap-8">
+              {duplicatedPartners.map((partner, idx) => (
+                <div
+                  key={`${partner.id}-${idx}`}
+                  className="group flex flex-col flex-shrink-0"
+                >
+                  {/* Video Player - TikTok Size */}
+                  <div className="w-72 aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden mb-4">
+                    <VideoPlayer src={partner.video} />
+                  </div>
 
-                {/* Content */}
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-foreground text-center">
-                    {partner.name}
-                  </h3>
-                  <p className="text-sm text-foreground/60 text-center leading-relaxed max-w-72">
-                    {partner.description}
-                  </p>
+                  {/* Content */}
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-foreground text-center">
+                      {partner.name}
+                    </h3>
+                    <p className="text-sm text-foreground/60 text-center leading-relaxed max-w-72">
+                      {partner.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Info Text */}
+          <div className="text-center">
+            <p className="text-sm text-foreground/50">Hover to pause • Continuously scrolling creators</p>
           </div>
         </div>
       </div>
