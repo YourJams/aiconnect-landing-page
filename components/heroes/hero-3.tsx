@@ -8,37 +8,37 @@ const partners = [
     id: 1,
     name: 'Sarah Mitchell',
     description: 'Tech & AI Content Creator | 500K+ followers',
-    video: '/vid1.mp4',
+    video: '/Whamos.mp4',
   },
   {
     id: 2,
     name: 'David Chen',
     description: 'Filmmaker & Producer | 1M+ followers',
-    video: '/vid2.mp4',
+    video: '/Whamos.mp4',
   },
   {
     id: 3,
     name: 'Luna Rodriguez',
     description: 'Music Producer & Creator | 750K+ followers',
-    video: '/vid3.mp4',
+    video: '/Whamos.mp4',
   },
   {
     id: 4,
     name: 'James Thompson',
     description: 'Podcast Host & Interviewer | 600K+ followers',
-    video: '/vid5.mp4',
+    video: '/Whamos.mp4',
   },
   {
     id: 5,
     name: 'Priya Patel',
     description: 'Educational Content Creator | 800K+ followers',
-    video: '/vid1.mp4',
+    video: '/Whamos.mp4',
   },
   {
     id: 6,
     name: 'Marcus Johnson',
     description: 'Gaming & Entertainment | 1.2M+ followers',
-    video: '/vid2.mp4',
+    video: '/Whamos.mp4',
   },
 ]
 
