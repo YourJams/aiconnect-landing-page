@@ -20,8 +20,9 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 max-w-7xl mx-auto w-full">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-primary hover:text-secondary transition-colors">
-            AiConnect
+          <Link href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
+            <span className="text-primary">AI</span>
+            <span className="text-foreground">Connect</span>
           </Link>
 
           {/* Desktop Navigation */}

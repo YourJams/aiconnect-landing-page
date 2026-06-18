@@ -1,9 +1,25 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import { Play, Pause } from 'lucide-react'
 
 export function Hero1() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(true)
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+      } else {
+        videoRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
   return (
     <section id="hero-1" className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-32 pb-16 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="max-w-6xl mx-auto w-full">
@@ -11,12 +27,8 @@ export function Hero1() {
           {/* Text Content */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-balance leading-tight">
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  AI Connect
-                </span>
-              </h1>
-              <p className="text-lg sm:text-xl text-foreground/70 mt-4">
+              <img src="/aiconnect.png" alt="AI Connect Logo" className="h-20 w-auto mb-6" />
+              <p className="text-lg sm:text-xl text-foreground/70">
                 Elevate your content with cutting-edge AI tools designed for creators. Get paid what you deserve while building your audience.
               </p>
             </div>
@@ -50,19 +62,33 @@ export function Hero1() {
 
           {/* Video Card */}
           <div className="flex justify-center">
-            <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden">
+            <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-3xl border-2 border-primary/50 shadow-lg shadow-primary/30 overflow-hidden relative group">
               <video
+                ref={videoRef}
                 width="400"
                 height="712"
                 autoPlay
                 loop
-                muted
                 playsInline
                 className="w-full h-full object-cover"
               >
                 <source src="/video1.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              
+              {/* Play/Pause Button */}
+              <button
+                onClick={togglePlayPause}
+                className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <div className="bg-primary/90 hover:bg-primary p-4 rounded-full">
+                  {isPlaying ? (
+                    <Pause className="w-8 h-8 text-white" fill="white" />
+                  ) : (
+                    <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                  )}
+                </div>
+              </button>
             </div>
           </div>
         </div>
