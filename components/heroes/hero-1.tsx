@@ -11,7 +11,7 @@ export function Hero1() {
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-balance leading-tight">
                 <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Rights Up
+                  AI Connect
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-foreground/70 mt-4">

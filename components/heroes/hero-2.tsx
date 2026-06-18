@@ -62,12 +62,12 @@ export function Hero2() {
   }
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    setCurrentIndex((prev) => (prev + 3) % testimonials.length)
     setAutoPlay(false)
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    setCurrentIndex((prev) => (prev - 3 + testimonials.length * 3) % testimonials.length)
     setAutoPlay(false)
   }
 
@@ -92,34 +92,34 @@ export function Hero2() {
               <div
                 className="transition-transform duration-500 ease-out"
                 style={{
-                  transform: `translateX(-${currentIndex * 100}%)`,
+                  transform: `translateX(-${(currentIndex % testimonials.length) * (100 / 3)}%)`,
                 }}
               >
                 <div className="flex">
                   {testimonials.map((testimonial) => (
                     <div
                       key={testimonial.id}
-                      className="w-full flex-shrink-0 px-4 sm:px-6"
+                      className="w-1/3 flex-shrink-0 px-3 sm:px-4"
                     >
-                      <div className="bg-card rounded-2xl border border-primary/20 p-8 sm:p-10 space-y-6">
+                      <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
                         {/* Video Placeholder */}
-                        <div className="w-full aspect-[9/16] bg-gradient-to-br from-secondary/20 to-primary/20 rounded-xl flex items-center justify-center border border-secondary/30">
+                        <div className="w-full aspect-[9/12] bg-gradient-to-br from-secondary/20 to-primary/20 rounded-xl flex items-center justify-center border border-secondary/30">
                           <div className="text-center space-y-2">
-                            <div className="text-4xl">🎬</div>
-                            <p className="text-xs text-foreground/40">Video Testimonial</p>
+                            <div className="text-3xl">▶</div>
+                            <p className="text-xs text-foreground/40">Video</p>
                           </div>
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-4">
-                          <blockquote className="text-lg sm:text-xl text-foreground italic">
+                        <div className="space-y-2">
+                          <blockquote className="text-sm text-foreground italic line-clamp-2">
                             "{testimonial.quote}"
                           </blockquote>
 
-                          <div className="pt-4 border-t border-border/50">
-                            <p className="font-semibold text-foreground">{testimonial.name}</p>
-                            <p className="text-sm text-foreground/60">{testimonial.title}</p>
-                            <p className="text-xs text-primary mt-2">{testimonial.views}</p>
+                          <div className="pt-2 border-t border-border/50">
+                            <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
+                            <p className="text-xs text-foreground/60">{testimonial.title}</p>
+                            <p className="text-xs text-primary mt-1">{testimonial.views}</p>
                           </div>
                         </div>
                       </div>
@@ -149,16 +149,19 @@ export function Hero2() {
 
           {/* Dots Navigation */}
           <div className="flex justify-center gap-3">
-            {testimonials.map((_, index) => (
+            {[0, 3].map((index) => (
               <button
                 key={index}
-                onClick={() => goToSlide(index)}
+                onClick={() => {
+                  setCurrentIndex(index)
+                  setAutoPlay(false)
+                }}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
+                  index === (currentIndex % testimonials.length)
                     ? 'bg-primary w-8'
                     : 'bg-muted hover:bg-muted/80'
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
+                aria-label={`Go to testimonials ${index + 1}-${index + 3}`}
               />
             ))}
           </div>
