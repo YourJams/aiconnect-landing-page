@@ -27,7 +27,7 @@ export function Hero1() {
           {/* Text Content */}
           <div className="space-y-6">
             <div>
-              <img src="/aiconnect.png" alt="AI Connect Logo" className="h-20 w-auto mb-6" />
+              <img src="/AiConnect.png" alt="AI Connect Logo" className="h-20 w-auto mb-6" />
               <p className="text-lg sm:text-xl text-foreground/70">
                 Elevate your content with cutting-edge AI tools designed for creators. Get paid what you deserve while building your audience.
               </p>
