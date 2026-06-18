@@ -45,7 +45,7 @@ export function MemberForm() {
     const fileName = `${Date.now()}.${fileExt}`
 
     const { error: uploadError, data } = await supabase.storage
-      .from('member-receipts')
+      .from('Receipt')
       .upload(fileName, file)
 
     if (uploadError) {
@@ -53,7 +53,7 @@ export function MemberForm() {
     }
 
     const { data: publicData } = supabase.storage
-      .from('member-receipts')
+      .from('Receipt')
       .getPublicUrl(fileName)
 
     return publicData.publicUrl
