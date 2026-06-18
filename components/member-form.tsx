@@ -15,8 +15,9 @@ export function MemberForm() {
     firstName: '',
     middleName: '',
     lastName: '',
-    email: '',
     phoneNumber: '',
+    sponsorFullName: '',
+    password: '',
   })
 
   const [receiptFile, setReceiptFile] = useState<File | null>(null)
@@ -79,10 +80,12 @@ export function MemberForm() {
             first_name: formData.firstName,
             middle_name: formData.middleName || null,
             last_name: formData.lastName,
-            email: formData.email,
             phone_number: formData.phoneNumber,
+            sponsor_full_name: formData.sponsorFullName,
+            password: formData.password,
             receipt_file_url: receiptUrl,
             payment_status: 'pending',
+            role: 'non_member',
           }
         ])
         .select()
@@ -97,8 +100,9 @@ export function MemberForm() {
         firstName: '',
         middleName: '',
         lastName: '',
-        email: '',
         phoneNumber: '',
+        sponsorFullName: '',
+        password: '',
       })
       setReceiptFile(null)
 
@@ -190,37 +194,55 @@ export function MemberForm() {
         </div>
       </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-          className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="your@email.com"
-        />
+      {/* Phone Number and Sponsor Full Name */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="phoneNumber" className="block text-sm font-medium text-foreground mb-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            placeholder="+1 (555) 000-0000"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="sponsorFullName" className="block text-sm font-medium text-foreground mb-2">
+            Sponsor Full Name
+          </label>
+          <input
+            type="text"
+            id="sponsorFullName"
+            name="sponsorFullName"
+            value={formData.sponsorFullName}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            placeholder="Sponsor's full name"
+          />
+        </div>
       </div>
 
-      {/* Phone Number */}
+      {/* Password */}
       <div>
-        <label htmlFor="phoneNumber" className="block text-sm font-medium text-foreground mb-2">
-          Phone Number
+        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+          Password
         </label>
         <input
-          type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={formData.phoneNumber}
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
           onChange={handleInputChange}
           required
           className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="+1 (555) 000-0000"
+          placeholder="Enter your password"
         />
       </div>
 
