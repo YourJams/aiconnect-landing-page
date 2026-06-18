@@ -46,10 +46,19 @@ function VideoPlayer({ src }: { src: string }) {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause()
+        setIsPlaying(false)
       } else {
-        videoRef.current.play()
+        const playPromise = videoRef.current.play()
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch(() => {
+              // Handle abort errors gracefully
+            })
+        } else {
+          setIsPlaying(true)
+        }
       }
-      setIsPlaying(!isPlaying)
     }
   }
 
