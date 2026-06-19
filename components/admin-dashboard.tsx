@@ -41,7 +41,7 @@ export function AdminDashboard() {
   const [searchedMember, setSearchedMember] = useState<MemberRegistration | null>(null)
   const [searchLoading, setSearchLoading] = useState(false)
 
-  // Fetch registrations and stats on component load
+  // Fetch data on load
   useEffect(() => {
     fetchNonMembers()
     fetchStats()
@@ -74,18 +74,11 @@ export function AdminDashboard() {
 
       const totalMembers =
         data?.filter((user) => user.role === 'member').length ?? 0
-
       const totalPending =
         data?.filter((user) => user.role === 'non_member').length ?? 0
-
-      // ₱2,000 per approved member
       const totalIncome = totalMembers * 2000
 
-      setStats({
-        totalMembers,
-        totalPending,
-        totalIncome,
-      })
+      setStats({ totalMembers, totalPending, totalIncome })
     } catch (err) {
       console.error(err)
     }
@@ -100,7 +93,6 @@ export function AdminDashboard() {
         .eq('id', id)
 
       if (error) throw error
-
       setRegistrations(prev => prev.filter(reg => reg.id !== id))
       fetchStats()
     } catch (err) {
@@ -119,7 +111,6 @@ export function AdminDashboard() {
         .eq('id', id)
 
       if (error) throw error
-
       setRegistrations(prev => prev.filter(reg => reg.id !== id))
       fetchStats()
     } catch (err) {
@@ -161,6 +152,7 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
+
       {/* Search Member UI */}
       <div className="bg-card border border-border/50 rounded-lg p-5 space-y-4">
         <h2 className="text-xl font-bold">Search Member</h2>
@@ -199,14 +191,43 @@ export function AdminDashboard() {
             <p>
               <strong>Registered:</strong> {new Date(searchedMember.created_at).toLocaleString()}
             </p>
-            <a
-              href={searchedMember.receipt_file_url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setSelectedReceipt(searchedMember.receipt_file_url)}
               className="text-primary underline"
             >
               View Receipt
-            </a>
+            </button>
+            {/* Role dropdown */}
+            <div className="mt-2">
+              <label className="block mb-1 font-medium">Change Role:</label>
+              <select
+                value={searchedMember.role}
+                onChange={async (e) => {
+                  const newRole = e.target.value as 'admin' | 'member' | 'non_member'
+                  const { error } = await supabase
+                    .from('member_registrations')
+                    .update({
+                      role: newRole,
+                      payment_status:
+                        newRole === 'member' ? 'verified' : searchedMember.payment_status,
+                    })
+                    .eq('id', searchedMember.id)
+
+                  if (!error) {
+                    setSearchedMember({ ...searchedMember, role: newRole })
+                    fetchStats()
+                    fetchNonMembers()
+                  } else {
+                    alert(error.message)
+                  }
+                }}
+                className="border rounded px-3 py-2 bg-background"
+              >
+                <option value="admin">Admin</option>
+                <option value="member">Member</option>
+                <option value="non_member">Non Member</option>
+              </select>
+            </div>
           </div>
         )}
       </div>
@@ -279,10 +300,10 @@ export function AdminDashboard() {
                 <p className="text-sm font-medium text-foreground">Payment Receipt</p>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setSelectedReceipt(selectedReceipt === reg.id ? null : reg.id)}
-                    className="text-primary hover:text-secondary text-sm underline"
+                    onClick={() => setSelectedReceipt(reg.receipt_file_url)}
+                    className="text-primary underline"
                   >
-                    {selectedReceipt === reg.id ? 'Hide' : 'View'} Receipt
+                    View Receipt
                   </button>
                   <a
                     href={reg.receipt_file_url}
@@ -293,19 +314,6 @@ export function AdminDashboard() {
                     Download
                   </a>
                 </div>
-
-                {selectedReceipt === reg.id && (
-                  <div className="mt-4 bg-background rounded-lg p-4 max-h-96 overflow-auto">
-                    <img
-                      src={reg.receipt_file_url}
-                      alt="Receipt"
-                      className="max-w-full h-auto"
-                      onError={(e) => {
-                        (e.target as HTMLElement).innerHTML = '<p class="text-foreground/50">Cannot display receipt</p>'
-                      }}
-                    />
-                  </div>
-                )}
               </div>
 
               {/* Action Buttons */}
@@ -329,6 +337,25 @@ export function AdminDashboard() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Receipt modal popup */}
+      {selectedReceipt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+          <div className="relative max-w-4xl w-[90%] bg-card rounded-xl p-4">
+            <button
+              onClick={() => setSelectedReceipt(null)}
+              className="absolute top-2 right-2 text-xl text-white"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedReceipt}
+              alt="Receipt"
+              className="w-full max-h-[80vh] object-contain rounded"
+            />
+          </div>
         </div>
       )}
     </div>
