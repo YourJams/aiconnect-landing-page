@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { Button } from '../../components/ui/button'
+import { Button } from './ui/button'
 import { CheckCircle, XCircle } from 'lucide-react'
 
 const supabase = createClient(
@@ -22,6 +22,7 @@ interface MemberRegistration {
   payment_status: string
   role: 'admin' | 'member' | 'non_member'
   created_at: string
+  password?: string
 }
 
 export function AdminDashboard() {
@@ -34,6 +35,11 @@ export function AdminDashboard() {
     totalPending: 0,
     totalIncome: 0,
   })
+
+  // Search states
+  const [searchUsername, setSearchUsername] = useState('')
+  const [searchedMember, setSearchedMember] = useState<MemberRegistration | null>(null)
+  const [searchLoading, setSearchLoading] = useState(false)
 
   // Fetch registrations and stats on component load
   useEffect(() => {
@@ -123,12 +129,88 @@ export function AdminDashboard() {
     }
   }
 
+  // Search function
+  const searchMember = async () => {
+    if (!searchUsername.trim()) return
+    setSearchLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('member_registrations')
+        .select('*')
+        .or(
+          `username.ilike.%${searchUsername}%,first_name.ilike.%${searchUsername}%,last_name.ilike.%${searchUsername}%`
+        )
+        .limit(1)
+
+      if (error || !data || data.length === 0) {
+        setSearchedMember(null)
+      } else {
+        setSearchedMember(data[0])
+      }
+    } catch (err) {
+      console.error(err)
+      setSearchedMember(null)
+    } finally {
+      setSearchLoading(false)
+    }
+  }
+
   if (loading) {
     return <div className="text-center py-8 text-foreground/50">Loading registrations...</div>
   }
 
   return (
     <div className="space-y-6">
+      {/* Search Member UI */}
+      <div className="bg-card border border-border/50 rounded-lg p-5 space-y-4">
+        <h2 className="text-xl font-bold">Search Member</h2>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={searchUsername}
+            onChange={(e) => setSearchUsername(e.target.value)}
+            placeholder="Enter username, first or last name..."
+            className="flex-1 px-4 py-2 rounded-lg border border-border bg-background"
+          />
+          <Button onClick={searchMember} disabled={searchLoading}>
+            {searchLoading ? 'Searching...' : 'Search'}
+          </Button>
+        </div>
+        {searchedMember && (
+          <div className="border border-border rounded-lg p-4 mt-4 space-y-2">
+            <p>
+              <strong>Name:</strong> {searchedMember.first_name} {searchedMember.middle_name ?? ''} {searchedMember.last_name}
+            </p>
+            <p>
+              <strong>Username:</strong> @{searchedMember.username}
+            </p>
+            <p>
+              <strong>Phone:</strong> {searchedMember.phone_number}
+            </p>
+            <p>
+              <strong>Sponsor:</strong> {searchedMember.sponsor_full_name}
+            </p>
+            <p>
+              <strong>Role:</strong> {searchedMember.role}
+            </p>
+            <p>
+              <strong>Payment Status:</strong> {searchedMember.payment_status}
+            </p>
+            <p>
+              <strong>Registered:</strong> {new Date(searchedMember.created_at).toLocaleString()}
+            </p>
+            <a
+              href={searchedMember.receipt_file_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
+              View Receipt
+            </a>
+          </div>
+        )}
+      </div>
+
       {/* Dashboard Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-card border border-border/50 rounded-lg p-5">
@@ -152,9 +234,7 @@ export function AdminDashboard() {
 
       {/* Pending Member Approvals Header */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold text-foreground">
-          Pending Member Approvals
-        </h1>
+        <h1 className="text-3xl font-bold text-foreground">Pending Member Approvals</h1>
         <div className="text-sm text-foreground/60">{registrations.length} pending</div>
       </div>
 
