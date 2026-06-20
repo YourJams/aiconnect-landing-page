@@ -10,6 +10,7 @@ const testimonials = [
     quote: 'AiConnect transformed how I manage my content.',
     views: '2.5M views',
     video: '/Whamos.mp4',
+    poster: '/Whamos-thumbnail.jpg', // Ensure you have a thumbnail for this video
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ const testimonials = [
     title: 'YouTube Creator',
     quote: 'Finally a platform that respects creator rights.',
     views: '1.8M views',
-    video: '/image.png',
+    video: '/image.mp4', // Assuming this is a video, update path accordingly
+    poster: '/placeholder-thumbnail.jpg', // Replace with actual thumbnail
   },
   {
     id: 3,
@@ -25,7 +27,8 @@ const testimonials = [
     title: 'Video Production',
     quote: 'The AI tools saved me hours every week.',
     views: '3.1M views',
-    video: '/image.png',
+    video: '/image.mp4', // Assuming this is a video, update path accordingly
+    poster: '/placeholder-thumbnail.jpg',
   },
   {
     id: 4,
@@ -33,7 +36,8 @@ const testimonials = [
     title: 'Streaming Creator',
     quote: 'I grew my audience by 300% in 6 months.',
     views: '2.2M views',
-    video: '/image.png',
+    video: '/image.mp4', // Assuming this is a video, update path accordingly
+    poster: '/placeholder-thumbnail.jpg',
   },
   {
     id: 5,
@@ -41,15 +45,20 @@ const testimonials = [
     title: 'Podcast Network',
     quote: 'AiConnect gave us the tools to scale.',
     views: '1.5M views',
-    video: '/image.png',
+    video: '/image.mp4', // Assuming this is a video, update path accordingly
+    poster: '/placeholder-thumbnail.jpg',
   },
 ]
 
-export function Hero2() {
-  const duplicatedTestimonials = [...testimonials, ...testimonials]
+// Decide whether to duplicate testimonials based on content; if all are videos, duplication might be heavy
+const duplicatedTestimonials = [...testimonials, ...testimonials]
 
+export function Hero2() {
   return (
-    <section id="hero-2" className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background via-primary/5 to-background">
+    <section
+      id="hero-2"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-32 bg-gradient-to-br from-background via-primary/5 to-background"
+    >
       <style jsx>{`
         @keyframes marquee {
           0% {
@@ -66,7 +75,7 @@ export function Hero2() {
           animation-play-state: paused;
         }
       `}</style>
-      
+
       <div className="w-full">
         <div className="space-y-12">
           {/* Header */}
@@ -88,12 +97,17 @@ export function Hero2() {
                   className="flex-shrink-0 w-72"
                 >
                   <div className="bg-card rounded-2xl border border-primary/20 p-4 sm:p-6 space-y-3 h-full">
-                    {/* Image */}
+                    {/* Video with poster */}
                     <div className="w-full aspect-[9/12] bg-black rounded-xl overflow-hidden border border-secondary/30">
-                      <img
+                      <video
                         src={testimonial.video}
-                        alt={testimonial.name}
+                        poster={testimonial.poster}
                         className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
                       />
                     </div>
 
